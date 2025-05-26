@@ -1,317 +1,2467 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>    
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XVLQJ5JMG9"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-XVLQJ5JMG9');
-</script>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TripGram - Making Memories... | Coming Soon</title>
+    <title>TripGram - Making Memories</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;700&family=Noto+Serif:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0V4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWvnz7KzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
     <style>
-        body {
-            margin: 0;
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(to right, #6a11cb, #2575fc); /* Modern gradient background */
-            color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            text-align: center;
-            overflow: hidden; /* Prevent scrollbar from animation */
+        /* CSS Variables for easier theming */
+        :root {
+            --primary-blue: #007BFF;
+            --dark-blue: #0056b3;
+            --accent-yellow: #FFEB3B;
+            --text-dark: #333;
+            --text-medium: #666;
+            --text-light: #f0f0f0;
+            --background-light: #fff;
+            --bg-light-blue: #E6F2FF;
+            --shadow-light: rgba(0,0,0,0.08);
+            --shadow-medium: rgba(0,0,0,0.12);
+            --shadow-strong: rgba(0,0,0,0.3);
+            --ad-orange: #FF5722; /* New color for ad emphasis */
+            --ad-green: #4CAF50; /* New color for cancellation policy */
+            --gradient-start: #007BFF;
+            --gradient-end: #0056b3;
+
+            /* Day/Night Theme Variables */
+            --body-bg: var(--text-light);
+            --text-color: var(--text-dark);
+            --card-bg: var(--background-light);
+            --topbar-bg: var(--background-light);
+            --topbar-shadow: var(--shadow-light);
+            --bottomnav-bg: var(--background-light);
+            --bottomnav-shadow: var(--shadow-medium);
+            --section-bg: var(--text-light);
+            --section-title-color: var(--text-dark);
+            --cta-button-color: white;
+            --cta-button-bg: var(--primary-blue);
+            --cta-button-hover-bg: var(--dark-blue);
+            --feature-icon-color: var(--primary-blue);
+            --testimonial-bg: var(--background-light);
+            --visa-bg: var(--bg-light-blue);
+            --ad-carousel-bg: var(--bg-light-blue);
+            --ad-box-bg: var(--background-light);
+            --ad-box-shadow: var(--shadow-medium);
+            --ad-box-border: rgba(0,0,0,0.05);
+            --footer-bg: #222;
+            --footer-text: white;
+
+            /* New Top Bar */
+            --top-black-bar-bg: #000;
+            --top-black-bar-text: white;
+            --top-black-bar-dropdown-bg: #333;
+            --top-black-bar-dropdown-hover-bg: #555;
+            --top-black-bar-button-hover-color: var(--accent-yellow);
         }
+
+        body.dark-theme {
+            --body-bg: #1a1a2e;
+            --text-color: #e0e0e0;
+            --card-bg: #2e2e4a;
+            --topbar-bg: #2e2e4a;
+            --topbar-shadow: rgba(0,0,0,0.4);
+            --bottomnav-bg: #2e2e4a;
+            --bottomnav-shadow: rgba(0,0,0,0.4);
+            --section-bg: #1a1a2e;
+            --section-title-color: #f0f0f0;
+            --cta-button-color: var(--text-dark);
+            --cta-button-bg: var(--accent-yellow);
+            --cta-button-hover-bg: #FFD700;
+            --feature-icon-color: var(--accent-yellow);
+            --testimonial-bg: #2e2e4a;
+            --visa-bg: #1a1a2e;
+            --ad-carousel-bg: #1a1a2e;
+            --ad-box-bg: #2e2e4a;
+            --ad-box-shadow: rgba(0,0,0,0.6);
+            --ad-box-border: rgba(255,255,255,0.1);
+            --footer-bg: #0f0f1c;
+            --footer-text: #ccc;
+
+            /* Dark theme specific adjustments */
+            .top-bar .greeting,
+            .top-bar .icon-button,
+            .bottom-nav .nav-item,
+            .bottom-nav .nav-item .icon,
+            .footer-content p,
+            .footer-links a,
+            .feature-item h3,
+            .testimonial-item .author,
+            .visa-services ul li, /* Old list item, keep for now if not fully replaced */
+            .visa-services ul li .icon, /* Old list item, keep for now if not fully replaced */
+            .visa-country-card .visa-country-name,
+            .visa-country-card .visa-country-icon {
+                color: var(--text-color) !important;
+            }
+            .feature-item .icon, .testimonial-item .author {
+                color: var(--feature-icon-color) !important; /* Override for icons/authors */
+            }
+            .nav-item.active {
+                color: var(--accent-yellow) !important;
+            }
+            .top-bar .icon-button:hover,
+            .top-bar .icon-button:focus,
+            .nav-item:hover,
+            .nav-item:focus {
+                color: var(--accent-yellow) !important;
+            }
+            .testimonial-item p {
+                color: var(--text-light) !important;
+            }
+            .visa-content p {
+                color: var(--text-light) !important;
+            }
+            .visa-content strong {
+                color: #ff914d !important; /* Lighter orange for Schengen */
+            }
+            .section-title {
+                color: var(--section-title-color) !important;
+            }
+            .ad-box h3, .tour-package-content h3, .visa-country-card h3 {
+                color: var(--accent-yellow) !important;
+            }
+            .ad-box p, .tour-package-content p, .visa-country-card p {
+                color: var(--text-light) !important;
+            }
+            .ad-box .ad-tag, .visa-country-card .visa-country-tag {
+                background-color: var(--accent-yellow) !important;
+                color: var(--text-dark) !important;
+            }
+
+            /* Hotel Booking Ad Specifics in Dark Theme */
+            .ad-box.hotel-booking-ad {
+                background: linear-gradient(135deg, #4A00E0 0%, #8E2DE2 100%) !important; /* Darker, richer gradient */
+            }
+             .hotel-booking-ad .ad-tag {
+                background-color: var(--accent-yellow) !important; /* Keep yellow tag */
+                color: var(--dark-blue) !important;
+            }
+            .hotel-booking-ad h3 {
+                color: white !important;
+            }
+            .hotel-booking-ad p {
+                color: var(--text-light) !important;
+            }
+            .hotel-booking-ad .cancellation-policy {
+                background-color: rgba(255,255,255,0.25) !important;
+            }
+            .hotel-booking-ad .cancellation-policy .icon {
+                color: #76FF03 !important; /* Brighter green */
+                filter: drop-shadow(0 0 8px rgba(118,255,3,0.7));
+            }
+            .hotel-booking-ad .cta-button {
+                background-color: var(--accent-yellow) !important;
+                color: var(--dark-blue) !important;
+            }
+             .hotel-booking-ad .cta-button:hover {
+                background-color: #FFD700 !important;
+            }
+            .whatsapp-button {
+                background-color: #4CAF50 !important; /* Slightly adjusted WhatsApp green */
+                box-shadow: 0 6px 15px rgba(0,0,0,0.6) !important;
+            }
+            .whatsapp-button:hover {
+                background-color: #388E3C !important;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.8) !important;
+            }
+            /* Dark mode for new top black bar */
+            .top-utility-bar {
+                background-color: #0d0d0d !important;
+                color: #f0f0f0 !important;
+            }
+            .top-utility-bar .language-dropdown select,
+            .top-utility-bar .theme-toggle-button {
+                background-color: #222 !important;
+                color: #f0f0f0 !important;
+                border-color: #444 !important;
+            }
+            .top-utility-bar .language-dropdown select option {
+                background-color: #222 !important;
+                color: #f0f0f0 !important;
+            }
+            .top-utility-bar .language-dropdown select:hover,
+            .top-utility-bar .theme-toggle-button:hover {
+                background-color: #444 !important;
+            }
+            .top-utility-bar .theme-toggle-button i {
+                 color: #f0f0f0 !important;
+            }
+            /* Dark mode for WhatsApp button emoji */
+            .whatsapp-button i {
+                color: var(--text-light) !important; /* Keep emoji white */
+            }
+        }
+
+
+        /* General Styles - UPDATED FONT-FAMILIES */
+        body {
+            font-family: 'Noto Sans', sans-serif; /* Use Noto Sans for general body text */
+            margin: 0;
+            padding: 0;
+            background-color: var(--body-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+        /* UNIVERSAL BOX-SIZING FOR CONSISTENT LAYOUT */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        /* Update specific heading styles to Noto Serif */
+        .top-bar .greeting,
+        .hotel-booking-ad-hero h3,
+        .band-1-content h1,
+        .band-2-box h2,
+        .band-3-content h2,
+        .section-title,
+        .tour-package-content h3,
+        .ad-box h3,
+        .visa-country-card .visa-country-name {
+            font-family: 'Noto Serif', serif;
+        }
+
+        /* Ensure other elements that previously used Roboto get Noto Sans */
+        .feature-item h3,
+        .testimonial-item .author,
+        .visa-content h2,
+        .visa-content p,
+        .footer-content p,
+        .footer-links a,
+        .nav-item {
+             font-family: 'Noto Sans', sans-serif;
+        }
+
+        /* New Black Utility Bar */
+        .top-utility-bar {
+            background-color: var(--top-black-bar-bg);
+            color: var(--top-black-bar-text);
+            padding: 8px 20px;
+            display: flex;
+            justify-content: space-between; /* Align items to flex-start and flex-end */
+            align-items: center;
+            gap: 20px;
+            font-size: 0.9em;
+            position: relative;
+            z-index: 1001; /* Higher than main top bar */
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+        .top-utility-bar > div:first-child { /* Left side for theme toggle */
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .top-utility-bar > div:last-child { /* Right side for language */
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+
+        .top-utility-bar .language-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .top-utility-bar .language-dropdown select {
+            background-color: transparent;
+            color: var(--top-black-bar-text);
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 5px 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.95em;
+            -webkit-appearance: none; /* Remove default arrow for Chrome/Safari */
+            -moz-appearance: none; /* Remove default arrow for Firefox */
+            appearance: none; /* Remove default arrow */
+            padding-right: 25px; /* Space for custom arrow */
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .top-utility-bar .language-dropdown select:hover {
+            background-color: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.6);
+        }
+
+        .top-utility-bar .language-dropdown::after { /* Custom arrow */
+            content: "\f0d7"; /* Font Awesome caret-down icon */
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none; /* Make sure click goes to select */
+            color: var(--top-black-bar-text);
+        }
+
+        .top-utility-bar .language-dropdown select option {
+            background-color: var(--top-black-bar-dropdown-bg);
+            color: var(--top-black-bar-text);
+        }
+        .top-utility-bar .language-dropdown select option:hover {
+            background-color: var(--top-black-bar-dropdown-hover-bg);
+        }
+
+        .top-utility-bar .theme-toggle-button {
+            background-color: transparent;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: var(--top-black-bar-text);
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.95em;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .top-utility-bar .theme-toggle-button:hover {
+            background-color: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.6);
+            color: var(--top-black-bar-button-hover-color);
+        }
+        .top-utility-bar .theme-toggle-button i {
+            font-size: 1.2em;
+            color: var(--top-black-bar-text);
+            transition: color 0.3s ease;
+        }
+        .top-utility-bar .theme-toggle-button:hover i {
+            color: var(--top-black-bar-button-hover-color);
+        }
+
 
         .container {
-            padding: 20px;
-            background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent overlay */
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            max-width: 90%;
-            animation: fadeIn 1.5s ease-out; /* Fade-in animation */
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
-        h1 {
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Top Bar */
+        .top-bar {
+            background-color: var(--topbar-bg);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px var(--topbar-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        .top-bar .greeting {
+            font-family: 'Noto Serif', serif; /* Updated */
+            font-size: 2.8em;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        .top-bar .controls {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .top-bar .icon-button {
+            font-size: 1.6em;
+            color: #555;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        body.dark-theme .top-bar .icon-button {
+            color: var(--text-color);
+        }
+
+        .top-bar .icon-button:hover,
+        .top-bar .icon-button:focus { /* Added focus state for accessibility */
+            color: var(--primary-blue);
+            outline: none; /* Remove default outline, visual alternative provided by hover */
+        }
+        body.dark-theme .top-bar .icon-button:hover,
+        body.dark-bar .icon-button:focus {
+            color: var(--accent-yellow);
+        }
+
+        /* Theme Toggle Button */
+        /* This button is now part of the new top utility bar, so hiding the old one */
+        #theme-toggle {
+            display: none;
+        }
+
+        /* Hero Section - The Collage Container */
+        .hero {
+            display: flex;
+            flex-direction: column; /* Stack bands vertically */
+            width: 100%;
+            color: white; /* Default text color for bands with image backgrounds */
+        }
+
+        .hero-band {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            display: flex; /* For aligning content within the band */
+            align-items: center; /* Vertically center content */
+            background-size: cover;
+            background-position: center;
+            box-sizing: border-box; /* Include padding in element's total width/height */
+        }
+
+        /* Hotel Booking Ad Band (New Top Band) */
+        .hero-band.band-hotel-ad {
+            min-height: 50vh;
+            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+            justify-content: center;
+            padding: 40px 60px;
+            box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.45); /* Dark overlay */
+            text-align: left;
+            position: relative; /* For the hotel booking ad box positioning */
+        }
+        .hotel-booking-ad-hero {
+            max-width: 600px; /* Limit width of text for readability */
+            width: 100%;
+            text-align: left;
+            color: white;
+            padding: 0; /* Remove padding if it was added from ad-box */
+            box-shadow: none; /* Remove shadow if it was added from ad-box */
+            background: none; /* Remove background if it was added from ad-box */
+            border: none; /* Remove border if it was added from ad-box */
+        }
+
+        .hotel-booking-ad-hero .ad-tag {
+            background-color: var(--accent-yellow);
+            color: var(--dark-blue);
+            padding: 10px 22px;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            border-radius: 25px;
+            display: inline-block;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+
+        .hotel-booking-ad-hero h3 {
+            font-family: 'Noto Serif', serif; /* Updated */
+            font-size: 3.2em;
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+            line-height: 1.1;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .hotel-booking-ad-hero p {
+            font-size: 1.4em;
+            color: var(--text-light);
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.4);
+        }
+
+        .hotel-booking-ad-hero .cancellation-policy {
+            display: flex;
+            align-items: center;
+            font-size: 1.25em;
+            font-weight: 700;
+            color: white;
+            margin-top: 20px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+            background-color: rgba(255,255,255,0.15);
+            padding: 10px 15px;
+            border-radius: 8px;
+            width: fit-content; /* Make background fit content */
+        }
+
+        .hotel-booking-ad-hero .cancellation-policy .icon {
+            font-size: 2em;
+            color: var(--ad-green);
+            margin-right: 12px;
+            filter: drop-shadow(0 0 5px rgba(0,255,0,0.5));
+        }
+
+        .hotel-booking-ad-hero .cta-button {
+            background-color: var(--accent-yellow);
+            color: var(--dark-blue);
+            padding: 20px 45px;
+            font-size: 1.4em;
+            border-radius: 60px;
+            font-weight: 800;
+            margin-top: 35px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        .hotel-booking-ad-hero .cta-button:hover {
+            background-color: #FFD700;
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+        }
+
+        /* First Band: Wide Image with Left-aligned Text Overlay (now second band) */
+        .hero-band.band-1 { /* Changed from band-1 to band-main-offer */
+            min-height: 50vh; /* Adjust height as needed */
+            background-image: url('https://images.unsplash.com/photo-1564507004663-b6dfb3c824d5?q=80&w=1674&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* Main hero image */
+            justify-content: flex-start; /* Align content to the left */
+            padding: 40px 60px; /* Padding for the content inside */
+            box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.45); /* Dark overlay */
+        }
+
+        .band-1-content {
+            max-width: 600px; /* Limit width of text for readability */
+            text-align: left;
+        }
+
+        .band-1-content .tag {
+            background-color: var(--accent-yellow);
+            color: black;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: 700;
+            font-size: 0.9em;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .band-1-content h1 {
+            font-family: 'Noto Serif', serif; /* Updated */
             font-size: 3.5em;
             margin-bottom: 10px;
-            letter-spacing: 2px;
-            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            animation: bounceIn 1s ease-out; /* Bounce-in animation */
+            line-height: 1.1;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+            color: white;
         }
 
-        h2 {
-            font-size: 1.8em;
-            margin-bottom: 30px;
-            font-weight: normal;
-            opacity: 0.9;
-            animation: slideInUp 1.2s ease-out; /* Slide-in animation */
+        .band-1-content p {
+            font-size: 1.4em;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 6px rgba(0,0,0,0.7);
+            color: white;
         }
 
-        .countdown {
+        .cta-button {
+            display: inline-block;
+            background-color: var(--cta-button-bg);
+            color: var(--cta-button-color);
+            padding: 18px 35px;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: 700;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cta-button:hover,
+        .cta-button:focus {
+            background-color: var(--cta-button-hover-bg);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+            outline: none;
+        }
+
+
+        /* Second Band: Two Boxes Side-by-Side (now third band) */
+        .hero-band.band-2 {
+            display: flex; /* Arrange boxes horizontally */
+            min-height: 40vh; /* Adjust height */
+            /* No background image for this band itself, children will have it */
+        }
+
+        .band-2-box {
+            flex: 1; /* Each box takes equal width */
             display: flex;
+            flex-direction: column;
             justify-content: center;
-            gap: 20px;
-            margin-bottom: 40px;
-            flex-wrap: wrap; /* Allow wrapping on small screens */
+            align-items: center;
+            padding: 30px;
+            text-align: center;
+            box-sizing: border-box;
+            background-size: cover;
+            background-position: center;
+            color: white; /* Default for boxes with image backgrounds */
         }
 
-        .countdown div {
-            background-color: rgba(255, 255, 255, 0.2);
-            padding: 15px 25px;
-            border-radius: 10px;
-            font-size: 2em;
-            font-weight: bold;
+        .band-2-box.box-left {
+            background-image: url('https://images.unsplash.com/photo-1579372785655-a81b19e99b8b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Y2l0eSUyMHRvdXJ8ZW58MHx8MHx8fDA%3D'); /* Paris image */
+            box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.55); /* Dark overlay */
+        }
+
+        .band-2-box.box-right {
+            background-image: url('https://images.unsplash.com/photo-1554254648-2d58a1bc3fd5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y3J1aXNlfGVufDB8fDB8fHww'); /* Santorini image */
+            box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.55); /* Dark overlay */
+        }
+
+        .band-2-box .tag {
+            background-color: var(--accent-yellow);
+            color: black;
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-weight: 700;
+            font-size: 0.8em;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .band-2-box h2 {
+            font-family: 'Noto Serif', serif; /* Updated */
+            font-size: 2.5em; /* Smaller than main hero title */
+            margin-bottom: 10px;
+            line-height: 1.1;
+            text-shadow: 1px 1px 6px rgba(0,0,0,0.7);
+            color: white;
+        }
+
+        .band-2-box p {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+            color: white;
+        }
+
+        .band-2-box .cta-button {
+            padding: 12px 25px; /* Smaller CTA for these boxes */
+            font-size: 1em;
+        }
+
+
+        /* Third Band: Another Wide Image with Center-aligned Text Overlay (now fourth band) */
+        .hero-band.band-3 {
+            min-height: 50vh; /* Adjust height as needed */
+            background-image: url('https://images.unsplash.com/photo-1567601169793-64703dc5324a?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* Kyoto image */
+            justify-content: center; /* Center content horizontally */
+            padding: 40px;
+            box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.5); /* Dark overlay */
+        }
+
+        .band-3-content {
+            max-width: 700px;
+            text-align: center;
+        }
+
+        .band-3-content h2 {
+            font-family: 'Noto Serif', serif; /* Updated */
+            font-size: 3em;
+            margin-bottom: 10px;
+            line-height: 1.1;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+            color: white;
+        }
+
+        .band-3-content p {
+            font-size: 1.3em;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 6px rgba(0,0,0,0.7);
+            color: white;
+        }
+
+
+        /* Bottom Navigation Bar (same as before) */
+        .bottom-nav {
+            background-color: var(--bottomnav-bg);
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 0 -2px 8px var(--bottomnav-shadow);
+            z-index: 999;
+            border-top: 1px solid #eee;
+            transition: background-color 0.5s ease, box-shadow 0.5s ease;
+        }
+        body.dark-theme .bottom-nav {
+            border-top: 1px solid #444;
+        }
+
+        .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-width: 90px;
-            animation: scaleIn 1s ease-out forwards; /* Scale-in animation */
-            opacity: 0; /* Start hidden for animation */
+            color: #777;
+            font-size: 0.85em;
+            font-weight: 500;
+            transition: color 0.3s ease, transform 0.2s ease;
+            cursor: pointer;
+            padding: 5px 0;
+            flex: 1;
+            text-align: center;
+            font-family: 'Noto Sans', sans-serif; /* Updated */
         }
 
-        .countdown div:nth-child(1) { animation-delay: 0.2s; }
-        .countdown div:nth-child(2) { animation-delay: 0.4s; }
-        .countdown div:nth-child(3) { animation-delay: 0.6s; }
-        .countdown div:nth-child(4) { animation-delay: 0.8s; }
-
-        .countdown span {
-            font-size: 0.6em;
-            margin-top: 5px;
-            opacity: 0.8;
+        .nav-item:hover,
+        .nav-item:focus {
+            color: var(--primary-blue);
+            transform: translateY(-2px);
+            outline: none;
         }
 
-        .contact-info {
-            margin-top: 30px;
+        .nav-item .icon {
+            font-size: 1.9em;
+            margin-bottom: 4px;
+        }
+
+        .nav-item.active {
+            color: var(--primary-blue);
+            font-weight: 700;
+        }
+
+        /* Other sections (same as before) */
+        .section-title {
+            font-family: 'Noto Serif', serif; /* Updated */
+            font-size: 3.2em;
+            text-align: center;
+            margin: 80px 0 50px;
+            color: var(--section-title-color);
+            transition: color 0.5s ease;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            padding-bottom: 80px;
+        }
+
+        .feature-item {
+            background-color: var(--card-bg);
+            padding: 35px;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px var(--shadow-light);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease;
+        }
+
+        .feature-item:hover,
+        .feature-item:focus {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+            outline: none;
+        }
+
+        .feature-item h3 {
+            font-size: 1.8em;
+            margin-top: 25px;
+            color: var(--primary-blue);
+            font-family: 'Noto Sans', sans-serif; /* Updated */
+        }
+
+        .feature-item p {
+            color: var(--text-medium);
             font-size: 1.1em;
         }
 
-        .contact-info p {
-            margin: 8px 0;
+        .feature-item .icon {
+            font-size: 3.5em;
+            color: var(--feature-icon-color);
+            transition: color 0.5s ease;
         }
 
-        .contact-info a {
+        /* Tour Packages Section (New) */
+        .tour-packages-section {
+            padding: 80px 0;
+            background-color: var(--section-bg); /* White background for this section */
+            transition: background-color 0.5s ease;
+        }
+
+        .tour-packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .tour-package-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px var(--shadow-medium);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease;
+        }
+
+        .tour-package-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .tour-package-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .tour-package-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .tour-package-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tour-package-content h3 {
+            font-family: 'Noto Serif', serif; /* Updated */
+            font-size: 1.8em;
+            color: var(--primary-blue);
+            margin-top: 0;
+            margin-bottom: 10px;
+            transition: color 0.5s ease;
+        }
+
+        .tour-package-content p {
+            font-size: 1em;
+            color: var(--text-medium);
+            margin-bottom: 20px;
+            flex-grow: 1; /* Pushes button to bottom */
+        }
+
+
+        /* Testimonials Section */
+        .testimonials {
+            padding-bottom: 80px;
+        }
+
+        .testimonials .swiper-container {
+            width: 100%;
+            padding-bottom: 60px; /* Space for pagination */
+            /* Ensure the swiper container itself can contain its content */
+            overflow: hidden; /* ADDED to prevent potential overflow from the swiper slides */
+        }
+
+        .testimonials .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            box-sizing: border-box;
+            /* Ensure individual slides don't overflow */
+            width: 100% !important; /* Force Swiper slides to adhere to parent's width */
+        }
+
+        .testimonial-item {
+            background-color: var(--testimonial-bg);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px var(--shadow-light);
+            position: relative;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease;
+            width: 100%; /* Ensure it fills the slide */
+            max-width: 400px; /* Limit width of individual testimonial */
+        }
+
+        .testimonial-item:hover,
+        .testimonial-item:focus {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px var(--shadow-medium);
+            outline: none;
+        }
+
+        .testimonial-item p {
+            font-style: italic;
+            color: #555;
+            margin-bottom: 20px;
+            font-size: 1.05em;
+        }
+
+        .testimonial-item .author {
+            font-weight: 700;
+            color: var(--primary-blue);
+            font-size: 1.1em;
+            margin-top: 15px;
+            display: block;
+            font-family: 'Noto Sans', sans-serif; /* Updated */
+        }
+
+        /* Visa Services Section */
+        .visa-services {
+            background-color: var(--visa-bg);
+            padding: 80px 0;
+            margin-top: 40px;
+            transition: background-color 0.5s ease;
+        }
+
+        .visa-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .visa-content h2 {
+            color: var(--dark-blue);
+            margin-bottom: 30px;
+            font-family: 'Noto Sans', sans-serif; /* Updated */
+        }
+        body.dark-theme .visa-content h2 {
+            color: var(--section-title-color);
+        }
+
+        .visa-content p {
+            font-size: 1.2em;
+            color: #444;
+            margin-bottom: 30px;
+            font-family: 'Noto Sans', sans-serif; /* Updated */
+        }
+
+        .visa-content strong {
+            color: #d9534f; /* Highlight Schengen in a reddish tone (kept as is for emphasis) */
+            font-size: 1.3em;
+            font-weight: 700;
+        }
+
+        /* Original visa list (hidden, but keeping styles if you reuse them) */
+        .visa-services ul {
+            list-style: none;
+            padding: 0;
+            display: none; /* Hide old list */
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .visa-services ul li {
+            background-color: var(--card-bg);
+            padding: 20px 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px var(--shadow-light);
+            font-weight: 500;
+            color: var(--text-dark);
+            flex-basis: calc(33% - 20px); /* 3 items per row on desktop */
+            max-width: 300px;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease, color 0.5s ease;
+        }
+
+        .visa-services ul li:hover,
+        .visa-services ul li:focus {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px var(--shadow-medium);
+            outline: none;
+        }
+
+        .visa-services ul li .icon {
+            color: var(--primary-blue);
+            font-size: 1.5em;
+            transition: color 0.5s ease;
+        }
+
+        /* NEW: Visa Countries Carousel */
+        .visa-countries-carousel-container {
+            width: 100%;
+            padding-bottom: 60px; /* Space for pagination */
+            margin-top: 40px; /* Space below the visa content text */
+            position: relative; /* For positioning navigation */
+            overflow: hidden; /* Important for Swiper */
+        }
+
+        .visa-countries-carousel-container .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .visa-country-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 8px 20px var(--shadow-medium);
+            padding: 25px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 300px; /* Max width for each country card */
+            width: 100%;
+            min-height: 200px; /* Consistent height */
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease;
+            border: 1px solid var(--ad-box-border);
+        }
+
+        .visa-country-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+        }
+        body.dark-theme .visa-country-card:hover {
+            box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+        }
+
+        .visa-country-card .visa-country-flag-icon {
+            font-size: 3.5em; /* Larger flag icon */
+            margin-bottom: 15px;
+            line-height: 1; /* Adjust line height for icon */
+        }
+        .visa-country-card .visa-country-name {
+            font-family: 'Noto Serif', serif; /* Updated */
+            font-size: 1.8em;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+            flex-grow: 1; /* Pushes button down */
+            transition: color 0.5s ease;
+        }
+        .visa-country-card .visa-country-tag {
+            background-color: var(--primary-blue);
             color: white;
-            text-decoration: none;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.8em;
+            margin-bottom: 15px;
+            display: inline-block;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        body.dark-theme .visa-country-card .visa-country-tag {
+             background-color: var(--accent-yellow);
+             color: var(--dark-blue);
+        }
+
+
+        /* Ad Carousel Section */
+        .ad-carousel-section {
+            padding: 60px 0;
+            background-color: var(--ad-carousel-bg); /* Light background for the section */
+            margin-top: 40px;
+            transition: background-color 0.5s ease;
+        }
+
+        .ad-carousel-section .section-title {
+            margin-top: 0;
+            margin-bottom: 40px;
+            color: var(--dark-blue);
+        }
+        body.dark-theme .ad-carousel-section .section-title {
+            color: var(--section-title-color);
+        }
+
+        .ad-carousel-section .swiper-container {
+            width: 100%;
+            height: auto;
+            padding-bottom: 60px; /* Space for pagination if it's outside */
+            /* FIX: ADDED overflow-x: hidden to prevent horizontal scroll from Swiper */
+            overflow-x: hidden;
+        }
+
+        .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: auto;
+            padding: 10px; /* Added padding to slides to prevent edge cut-off on smaller screens */
+            box-sizing: border-box;
+            /* FIX: Ensure individual slides don't try to grow beyond their allocated space, if auto is used. */
+            /* If issues persist, consider adding a max-width based on your smallest ad-box size */
+            /* max-width: 380px; */
+        }
+
+        /* Improved Ad Box Design */
+        .ad-box {
+            background-color: var(--ad-box-bg);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px var(--ad-box-shadow);
+            padding: 30px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 380px; /* Slightly wider for better content display */
+            width: 100%; /* ADDED: Ensure it scales down within its max-width */
+            min-height: 300px; /* Consistent minimum height */
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease, color 0.5s ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--ad-box-border); /* Subtle border */
+        }
+
+        .ad-box:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        body.dark-theme .ad-box:hover {
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+
+
+        .ad-box .ad-tag {
+            background-color: var(--ad-orange);
+            color: white;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85em;
+            margin-bottom: 15px;
+            display: inline-block;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .ad-box h3 {
+            font-family: 'Noto Serif', serif; /* Updated */
+            font-size: 2em; /* Slightly larger heading */
+            color: var(--dark-blue); /* Darker blue for contrast */
+            margin-bottom: 10px;
+            line-height: 1.2;
+            transition: color 0.5s ease;
+        }
+
+        .ad-box p {
+            font-size: 1.1em; /* Slightly larger body text */
+            color: var(--text-medium);
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 50px 0 120px; /* Increased bottom padding to account for fixed bottom nav */
+            text-align: center;
+            font-size: 0.9em;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-content p {
+            margin: 7px 0;
+            font-family: 'Noto Sans', sans-serif; /* Updated */
+        }
+
+        .footer-links a {
+            color: #ccc;
+            margin: 0 20px;
             transition: color 0.3s ease;
+            font-family: 'Noto Sans', sans-serif; /* Updated */
         }
 
-        .contact-info a:hover {
-            color: #d1e2ff;
+        .footer-links a:hover,
+        .footer-links a:focus {
+            color: var(--primary-blue);
+            outline: none;
         }
 
+        /* WhatsApp Chat Button */
         .whatsapp-button {
-            display: inline-flex;
+            position: fixed;
+            bottom: 100px; /* Adjusted to be above the bottom nav */
+            right: 30px;
+            background-color: #25d366; /* WhatsApp green */
+            color: white;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #25D366; /* WhatsApp green */
-            color: white;
-            padding: 15px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-size: 1.3em;
-            font-weight: bold;
-            margin-top: 40px;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-            animation: pulse 2s infinite; /* Pulsing animation for emphasis */
+            font-size: 2.8em; /* Kept font size for emoji */
+            box-shadow: 0 6px 15px var(--shadow-strong);
+            z-index: 1000;
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .whatsapp-button:hover {
-            transform: translateY(-5px) scale(1.05);
-            background-color: #1DA851;
+        .whatsapp-button:hover,
+        .whatsapp-button:focus {
+            background-color: #1da851;
+            transform: scale(1.15);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            outline: none;
+        }
+        /* Style for the emoji itself within the button */
+        .whatsapp-button .emoji-icon {
+            font-size: 0.9em; /* Adjust emoji size if needed relative to button size */
+            line-height: 1; /* Center the emoji vertically */
         }
 
-        .whatsapp-button img {
-            width: 30px;
-            height: 30px;
-            margin-right: 10px;
-        }
 
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+        /* ==================== Mobile Responsiveness ==================== */
 
-        @keyframes bounceIn {
-            0%, 20%, 40%, 60%, 80%, 100% {
-                transition-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+        @media (max-width: 992px) {
+            .hero-band.band-hotel-ad, .hero-band.band-1 {
+                padding: 30px 40px;
             }
-            0% {
-                opacity: 0;
-                transform: scale3d(0.3, 0.3, 0.3);
+            .hotel-booking-ad-hero h3 {
+                font-size: 2.8em;
             }
-            20% {
-                transform: scale3d(1.1, 1.1, 1.1);
+            .hotel-booking-ad-hero p {
+                font-size: 1.2em;
             }
-            40% {
-                transform: scale3d(0.9, 0.9, 0.9);
+            .hotel-booking-ad-hero .cancellation-policy {
+                font-size: 1.15em;
             }
-            60% {
-                opacity: 1;
-                transform: scale3d(1.03, 1.03, 1.03);
+            .hotel-booking-ad-hero .cta-button {
+                padding: 16px 35px;
+                font-size: 1.2em;
             }
-            80% {
-                transform: scale3d(0.97, 0.97, 0.97);
-            }
-            100% {
-                opacity: 1;
-                transform: scale3d(1, 1, 1);
-            }
-        }
 
-        @keyframes slideInUp {
-            from {
-                transform: translateY(50px);
-                opacity: 0;
+            .band-1-content h1 {
+                font-size: 3em;
             }
-            to {
-                transform: translateY(0);
-                opacity: 0.9;
+            .band-1-content p {
+                font-size: 1.2em;
             }
-        }
 
-        @keyframes scaleIn {
-            from {
-                transform: scale(0.5);
-                opacity: 0;
+            .hero-band.band-2 {
+                flex-direction: column; /* Stack the two boxes vertically on smaller screens */
+                min-height: auto; /* Allow height to adjust */
             }
-            to {
-                transform: scale(1);
-                opacity: 1;
+            .band-2-box {
+                min-height: 35vh; /* Give some height when stacked */
+                padding: 30px;
             }
-        }
+            .band-2-box h2 {
+                font-size: 2.2em;
+            }
+            .band-2-box p {
+                font-size: 1em;
+            }
 
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); }
-            50% { transform: scale(1.05); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); }
-            100% { transform: scale(1); box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            h1 {
+            .hero-band.band-3 {
+                padding: 30px 40px;
+            }
+            .band-3-content h2 {
                 font-size: 2.5em;
             }
+            .band-3-content p {
+                font-size: 1.1em;
+            }
 
-            h2 {
+            /* Ad Carousel Responsiveness */
+            .ad-carousel-section {
+                padding: 40px 0;
+            }
+            .swiper-slide {
+                padding: 5px; /* Adjust padding for smaller screens */
+            }
+            .ad-box {
+                max-width: 90%; /* Allow larger on smaller screens, but keep within bounds */
+                min-height: 280px;
+            }
+            .ad-box h3 {
+                font-size: 1.7em;
+            }
+            .ad-box p {
+                font-size: 1em;
+            }
+
+            /* Tour Packages Responsiveness */
+            .tour-package-card {
+                max-width: 90%;
+                margin: 0 auto;
+            }
+            .tour-package-card img {
+                height: 200px;
+            }
+            .tour-package-content h3 {
+                font-size: 1.6em;
+            }
+            .tour-package-content p {
+                font-size: 0.95em;
+            }
+
+            /* Visa Carousel Responsiveness */
+            .visa-countries-carousel-container {
+                padding-bottom: 50px;
+            }
+            .visa-country-card {
+                max-width: 90%;
+                min-height: 180px;
+                padding: 20px;
+            }
+            .visa-country-card .visa-country-flag-icon {
+                font-size: 3em;
+            }
+            .visa-country-card .visa-country-name {
+                font-size: 1.6em;
+            }
+            .top-utility-bar {
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 10px;
+                padding: 8px 15px;
+            }
+             .top-utility-bar > div:first-child,
+             .top-utility-bar > div:last-child {
+                width: 100%; /* Make them full width within the bar */
+                justify-content: space-between; /* Space out items */
+             }
+             .top-utility-bar .theme-toggle-button,
+             .top-utility-bar .language-dropdown select {
+                flex: 1; /* Take up available space */
+             }
+        }
+
+        @media (max-width: 768px) {
+            .top-bar {
+                padding: 10px 20px;
+            }
+            .top-bar .greeting {
+                font-size: 2.2em;
+            }
+            .top-bar .controls {
+                gap: 15px;
+            }
+            .top-bar .icon-button {
+                font-size: 1.4em;
+            }
+            #theme-toggle {
                 font-size: 1.4em;
             }
 
-            .countdown div {
-                font-size: 1.5em;
-                padding: 10px 20px;
-                min-width: 70px;
+            .hero-band.band-hotel-ad, .hero-band.band-1 {
+                min-height: 60vh;
+                padding: 25px 30px;
             }
-
-            .whatsapp-button {
+            .hotel-booking-ad-hero h3 {
+                font-size: 2.4em;
+            }
+            .hotel-booking-ad-hero p {
                 font-size: 1.1em;
-                padding: 12px 25px;
+            }
+            .hotel-booking-ad-hero .cancellation-policy {
+                font-size: 1.05em;
+            }
+            .hotel-booking-ad-hero .cancellation-policy .icon {
+                font-size: 1.8em;
+            }
+            .hotel-booking-ad-hero .cta-button {
+                padding: 15px 30px;
+                font-size: 1.1em;
             }
 
-            .whatsapp-button img {
-                width: 25px;
-                height: 25px;
+            .band-1-content h1 {
+                font-size: 2.5em;
+            }
+            .band-1-content p {
+                font-size: 1.1em;
+            }
+            .cta-button {
+                padding: 15px 30px;
+                font-size: 1.1em;
+            }
+
+            .band-2-box {
+                min-height: 30vh;
+                padding: 25px;
+            }
+            .band-2-box h2 {
+                font-size: 2em;
+            }
+            .band-2-box p {
+                font-size: 0.95em;
+            }
+            .band-2-box .cta-button {
+                padding: 10px 20px;
+                font-size: 0.9em;
+            }
+
+            .hero-band.band-3 {
+                min-height: 50vh;
+                padding: 25px 30px;
+            }
+            .band-3-content h2 {
+                font-size: 2.2em;
+            }
+            .band-3-content p {
+                font-size: 1em;
+            }
+
+            .section-title {
+                font-size: 2.5em;
+                margin: 50px 0 30px;
+            }
+
+            .features, .tour-packages-grid { /* Added tour-packages-grid */
+                grid-template-columns: 1fr;
+                gap: 30px;
+                padding-bottom: 60px;
+            }
+
+            .feature-item {
+                padding: 30px;
+            }
+            .feature-item h3 {
+                font-size: 1.5em;
+            }
+            .feature-item .icon {
+                font-size: 3em;
+            }
+
+            /* Ad Carousel Responsiveness */
+            .ad-box {
+                min-height: 250px;
+                padding: 25px;
+            }
+            .ad-box h3 {
+                font-size: 1.7em;
+            }
+            .ad-box p {
+                font-size: 1em;
+            }
+
+            .gallery-item img {
+                height: 220px;
+            }
+
+            .testimonial-item {
+                padding: 25px;
+            }
+            .testimonial-item p {
+                font-size: 1em;
+            }
+            .testimonial-item .author {
+                font-size: 1em;
+            }
+
+            .visa-services {
+                padding: 60px 0;
+            }
+            .visa-content h2 {
+                font-size: 2.5em;
+            }
+            .visa-content p {
+                font-size: 1.1em;
+            }
+            /* Old visa list was hidden, but if shown: */
+            .visa-services ul li {
+                flex-basis: calc(50% - 15px); /* 2 items per row on tablet/small mobile */
+                padding: 18px 20px;
+                font-size: 0.95em;
+            }
+
+            /* Visa Carousel Responsiveness */
+            .visa-country-card {
+                max-width: 300px; /* Keep similar to desktop max-width if 2 slides fit */
+                min-height: 180px;
             }
         }
 
         @media (max-width: 480px) {
-            h1 {
+            .top-bar .greeting {
                 font-size: 1.8em;
             }
-
-            h2 {
-                font-size: 1.1em;
-            }
-
-            .countdown {
+            .top-bar .controls {
                 gap: 10px;
             }
-
-            .countdown div {
+            .top-bar .icon-button {
                 font-size: 1.2em;
-                padding: 8px 15px;
-                min-width: 60px;
+            }
+            /* Old theme toggle is display: none; */
+
+            .hero-band.band-hotel-ad, .hero-band.band-1 {
+                min-height: 70vh;
+                padding: 20px 25px;
+            }
+            .hotel-booking-ad-hero h3 {
+                font-size: 2em;
+            }
+            .hotel-booking-ad-hero p {
+                font-size: 0.95em;
+            }
+            .hotel-booking-ad-hero .cancellation-policy {
+                font-size: 0.95em;
+            }
+            .hotel-booking-ad-hero .cancellation-policy .icon {
+                font-size: 1.5em;
+            }
+            .hotel-booking-ad-hero .cta-button {
+                padding: 12px 25px;
+                font-size: 1em;
             }
 
-            .contact-info {
+            .band-1-content h1 {
+                font-size: 2em;
+            }
+            .band-1-content p {
+                font-size: 1em;
+            }
+            .cta-button {
+                padding: 12px 25px;
+                font-size: 1em;
+            }
+
+            .band-2-box {
+                min-height: 25vh; /* Slightly less height for very small screens */
+                padding: 20px;
+            }
+            .band-2-box h2 {
+                font-size: 1.8em;
+            }
+            .band-2-box p {
+                font-size: 0.85em;
+            }
+
+            .hero-band.band-3 {
+                min-height: 55vh;
+                padding: 20px 25px;
+            }
+            .band-3-content h2 {
+                font-size: 1.8em;
+            }
+            .band-3-content p {
                 font-size: 0.9em;
             }
 
+            .section-title {
+                font-size: 2em;
+            }
             .whatsapp-button {
-                font-size: 1em;
-                padding: 10px 20px;
-                margin-top: 30px;
+                width: 45px;
+                height: 45px;
+                font-size: 1.8em; /* Kept font size for emoji */
+                bottom: 80px; /* Further adjust for very small screens */
+            }
+            /* Old visa list was hidden, but if shown: */
+            .visa-services ul li {
+                flex-basis: 100%; /* Stack items on very small screens */
+                font-size: 0.9em;
             }
 
-            .whatsapp-button img {
-                width: 20px;
-                height: 20px;
+            /* Ad Carousel Responsiveness */
+            .ad-box {
+                min-height: 220px;
+                padding: 20px;
+            }
+            .ad-box h3 {
+                font-size: 1.5em;
+            }
+            .ad-box p {
+                font-size: 0.9em;
+            }
+
+
+            /* Tour Packages Responsiveness */
+            .tour-package-card {
+                max-width: 100%;
+            }
+            .tour-package-card img {
+                height: 180px;
+            }
+            .tour-package-content h3 {
+                font-size: 1.4em;
+            }
+            .tour-package-content p {
+                font-size: 0.85em;
+            }
+            .tour-package-content .cta-button {
+                padding: 10px 20px;
+                font-size: 0.85em;
+            }
+
+            /* Visa Carousel Responsiveness */
+            .visa-countries-carousel-container {
+                padding-bottom: 40px;
+            }
+            .visa-country-card {
+                max-width: 95%; /* Adjust for single slide view */
+                min-height: 160px;
+                padding: 15px;
+            }
+            .visa-country-card .visa-country-flag-icon {
+                font-size: 2.8em;
+            }
+            .visa-country-card .visa-country-name {
+                font-size: 1.4em;
+            }
+            .top-utility-bar {
+                flex-direction: column; /* Stack language and theme buttons */
+                align-items: center; /* Center them horizontally */
+                gap: 8px; /* Reduce gap */
+                padding: 8px 10px; /* Adjust padding */
+            }
+            .top-utility-bar > div:first-child,
+            .top-utility-bar > div:last-child {
+                width: 100%; /* Make them full width within the bar */
+                justify-content: space-between; /* Space out items */
+            }
+            .top-utility-bar .theme-toggle-button,
+            .top-utility-bar .language-dropdown select {
+                width: auto; /* Allow auto width now that they're within a flex container */
+                flex: 1; /* Take up available space */
             }
         }
+
+        /* Styles to hide Swiper pagination dots and navigation arrows */
+        .swiper-pagination {
+            display: none !important;
+        }
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            display: none !important;
+        }
+
+        /* Google Translate specific overrides */
+        .goog-te-banner-frame {
+            display: none !important;
+        }
+        body {
+            top: 0px !important; /* Prevents body from shifting down due to Google Translate banner */
+        }
+
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>TripGram</h1>
-        <h2>Making Memories... - Coming Soon!</h2>
-        <p>Get ready to embark on unforgettable journeys. Our new website is launching soon!</p>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XVLQJ5JMG9"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-        <div class="countdown" id="countdown">
-            <div><span id="days">00</span><span>Days</span></div>
-            <div><span id="hours">00</span><span>Hours</span></div>
-            <div><span id="minutes">00</span><span>Minutes</span></div>
-            <div><span id="seconds">00</span><span>Seconds</span></div>
+      gtag('config', 'G-XVLQJ5JMG9');
+    </script>
+
+    <div class="top-utility-bar">
+        <div> <button class="theme-toggle-button" aria-label="Toggle day or night theme">
+                <i class="fas fa-moon"></i> Night
+            </button>
         </div>
-
-        <p>In the meantime, feel free to reach out to us:</p>
-
-        <div class="contact-info">
-            <p><strong>Phone:</strong> <a href="tel:+919390689275">+91 9390689275</a></p>
-            <p><strong>Email:</strong> <a href="mailto:sales.tripgram@gmail.com">sales.tripgram@gmail.com</a></p>
+        <div>
+            <div id="google_translate_element" style="display: none;"></div>
+            <div class="language-dropdown">
+                <select id="website-language-select" aria-label="Select website language">
+                    <option value="en">English</option>
+                    <option value="hi">Hindi</option>
+                    <option value="fr">French</option>
+                    <option value="ar">Arabic</option>
+                    <option value="ml">Malayalam</option>
+                </select>
+            </div>
         </div>
-
-        <a href="https://wa.me/919390689275" class="whatsapp-button" target="_blank" rel="noopener noreferrer">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Icon">
-            Emergency Contact via WhatsApp
-        </a>
     </div>
 
+    <header class="top-bar">
+        <div class="greeting">TripGram!</div>
+        <div class="controls">
+            <span class="icon-button" aria-label="Search"><i class="fas fa-search"></i></span>
+            <button id="theme-toggle" aria-label="Toggle day or night theme" style="display: none;">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-band band-hotel-ad">
+                <div class="hotel-booking-ad-hero">
+                    <span class="ad-tag">VISA ESSENTIAL!</span>
+                    <h3>Hotel Bookings for Visa</h3>
+                    <p>Secure your accommodation for visa applications with peace of mind. We provide confirmed bookings tailored for your visa needs.</p>
+                    <div class="cancellation-policy">
+                        <span class="icon"><i class="fas fa-check-circle"></i></span>
+                        <span>Cancel for FREE if Visa Rejected!*</span>
+                    </div>
+                    <a href="#" class="cta-button" data-whatsapp-msg="I'm interested in hotel bookings for visa purposes.">Book Now</a>
+                </div>
+            </div>
+
+            <div class="hero-band band-1">
+                <div class="band-1-content">
+                    <span class="tag">Special Offer</span>
+                    <h1>Adventure Awaits!</h1>
+                    <p>Flat 20% off* on your first international tour booking!</p>
+                    <a href="#" class="cta-button" data-whatsapp-msg="I'm interested in exploring deals.">Explore Deals</a>
+                </div>
+            </div>
+
+            <div class="hero-band band-2">
+                <div class="band-2-box box-left">
+                    <span class="tag">Exclusive Deals</span>
+                    <h2>City Breaks & Cultural Tours</h2>
+                    <p>Discover hidden gems and vibrant cities with our curated packages.</p>
+                    <a href="#" class="cta-button" data-whatsapp-msg="I'd like to know more about City Breaks & Cultural Tours.">See City Tours</a>
+                </div>
+                <div class="band-2-box box-right">
+                    <span class="tag">Limited Time</span>
+                    <h2>Beach Escapes & Cruises</h2>
+                    <p>Relax on pristine beaches or cruise the open seas with amazing discounts!</p>
+                    <a href="#" class="cta-button" data-whatsapp-msg="I'm interested in Beach Escapes & Cruises.">Book Now</a>
+                </div>
+            </div>
+
+            <div class="hero-band band-3">
+                <div class="band-3-content">
+                    <h2>Your Dream Journey Starts Here</h2>
+                    <p>Personalized itineraries, seamless booking, and expert support for every step of your adventure.</p>
+                    <a href="#" class="cta-button" data-whatsapp-msg="I want to plan my trip with TripGram.">Plan Your Trip</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="container" id="services">
+            <h2 class="section-title">Why Choose TripGram?</h2>
+            <div class="features">
+                <div class="feature-item">
+                    <span class="icon"><i class="fas fa-map-marked-alt"></i></span>
+                    <h3>Tailored Itineraries</h3>
+                    <p>Every trip customized to your preferences, ensuring a unique experience.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="icon"><i class="fas fa-dollar-sign"></i></span>
+                    <h3>Best Value Deals</h3>
+                    <p>Exclusive partnerships for competitive prices without compromising quality.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="icon"><i class="fas fa-plane-departure"></i></span>
+                    <h3>Seamless Planning</h3>
+                    <p>From flights to accommodation, we handle all the details for a stress-free journey.</p>
+                </div>
+                <div class="feature-item">
+                    <span class="icon"><i class="fas fa-headset"></i></span>
+                    <h3>24/7 Support</h3>
+                    <p>Our dedicated team is always available to assist you, anytime, anywhere.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="ad-carousel-section">
+            <div class="container">
+                <h2 class="section-title">Exclusive Deals & Offers</h2>
+                <div class="swiper-container mySwiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="ad-box">
+                                <span class="ad-tag">FLIGHT DEALS</span>
+                                <h3>Fly Smarter, Pay Less</h3>
+                                <p>Grab incredible discounts on international and domestic flights. Your next adventure is just a click away!</p>
+                                <a href="#" class="cta-button" data-whatsapp-msg="I'd like to find flight deals.">Find Flights</a>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="ad-box">
+                                <span class="ad-tag">NEW PACKAGES</span>
+                                <h3>Discover Offbeat Destinations</h3>
+                                <p>Explore unique and unexplored locales with our specially curated offbeat tour packages.</p>
+                                <a href="#" class="cta-button" data-whatsapp-msg="Tell me more about offbeat tour packages.">Explore More</a>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="ad-box">
+                                <span class="ad-tag">LAST MINUTE</span>
+                                <h3>Spontaneous Travel Deals</h3>
+                                <p>Unbeatable prices for last-minute trips! Pack your bags and go on an instant adventure.</p>
+                                <a href="#" class="cta-button" data-whatsapp-msg="I'm looking for last minute travel deals.">View Deals</a>
+                            </div>
+                        </div>
+                         <div class="swiper-slide">
+                            <div class="ad-box">
+                                <span class="ad-tag">TRAVEL INSURANCE</span>
+                                <h3>Worry-Free Travel</h3>
+                                <p>Comprehensive travel insurance plans to protect your trip from unexpected events.</p>
+                                <a href="#" class="cta-button" data-whatsapp-msg="I need travel insurance.">Get Insured</a>
+                            </div>
+                        </div>
+                         <div class="swiper-slide">
+                            <div class="ad-box">
+                                <span class="ad-tag">GROUP TOURS</span>
+                                <h3>Adventure with Friends</h3>
+                                <p>Join our exciting group tours and share unforgettable moments with fellow travelers!</p>
+                                <a href="#" class="cta-button" data-whatsapp-msg="I'm interested in joining group tours.">Join Group</a>
+                            </div>
+                        </div>
+                         <div class="swiper-slide">
+                            <div class="ad-box">
+                                <span class="ad-tag">HOTEL DEALS</span>
+                                <h3>Exclusive Hotel Offers</h3>
+                                <p>Find the best rates on hotels worldwide. From luxury resorts to cozy boutique stays.</p>
+                                <a href="#" class="cta-button" data-whatsapp-msg="I'm looking for exclusive hotel offers.">Find Hotels</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="container tour-packages-section" id="tour-packages">
+            <h2 class="section-title">Our Best Tour Packages</h2>
+            <div class="tour-packages-grid">
+                <div class="tour-package-card">
+                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Maldives Overwater Bungalows">
+                    <div class="tour-package-content">
+                        <h3>Maldives Paradise Escape</h3>
+                        <p>Relax in luxury overwater bungalows, enjoy pristine beaches, and crystal-clear waters. Perfect for honeymooners!</p>
+                        <a href="#" class="cta-button" data-whatsapp-msg="I'm interested in the Maldives Paradise Escape package.">Enquire Now</a>
+                    </div>
+                </div>
+
+                <div class="tour-package-card">
+                    <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8UEFSSVN8ZW58MHx8MHx8fDA%3D" alt="Eiffel Tower, Paris">
+                    <div class="tour-package-content">
+                        <h3>Grand European Journey</h3>
+                        <p>Explore the iconic cities of Paris, Rome, and Venice. Art, history, and romance await on this unforgettable tour.</p>
+                        <a href="#" class="cta-button" data-whatsapp-msg="I'm interested in the Grand European Journey package.">Enquire Now</a>
+                    </div>
+                </div>
+
+                <div class="tour-package-card">
+                    <img src="https://images.unsplash.com/photo-1589394815804-964ed0be2eb5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8UGh1a2V0fGVufDB8fDB8fHww" alt="Longtail boat in Thailand">
+                    <div class="tour-package-content">
+                        <h3>Thailand Beaches & Temples</h3>
+                        <p>From the bustling streets of Bangkok to the serene beaches of Phuket, experience the best of Thailand.</p>
+                        <a href="#" class="cta-button" data-whatsapp-msg="I'm interested in the Thailand Beaches & Temples package.">Enquire Now</a>
+                    </div>
+                </div>
+
+                <div class="tour-package-card">
+                    <img src="https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8amFwYW58ZW58MHx8MHx8fDA%3D" alt="Cherry Blossoms in Japan">
+                    <div class="tour-package-content">
+                        <h3>Enchanting Japan Tour</h3>
+                        <p>Immerse yourself in ancient traditions, modern marvels, and breathtaking cherry blossoms.</p>
+                        <a href="#" class="cta-button" data-whatsapp-msg="I'm interested in the Enchanting Japan Tour package.">Enquire Now</a>
+                    </div>
+                </div>
+
+                <div class="tour-package-card">
+                    <img src="https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8dmlldG5hbXxlbnwwfHwwfHx8MA%3D%3D" alt="Ha Long Bay, Vietnam">
+                    <div class="tour-package-content">
+                        <h3>Vietnam & Cambodia Odyssey</h3>
+                        <p>Discover the rich history, vibrant cultures, and stunning landscapes of Southeast Asia.</p>
+                        <a href="#" class="cta-button" data-whatsapp-msg="I'm interested in the Vietnam & Cambodia Odyssey package.">Enquire Now</a>
+                    </div>
+                </div>
+
+                 <div class="tour-package-card">
+                    <img src="https://plus.unsplash.com/premium_photo-1661916762370-4768aa1fc4c4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8ZHViYWl8ZW58MHx8MHx8fDA%3D" alt="Dubai Skyline">
+                    <div class="tour-package-content">
+                        <h3>Dubai Desert & City Lights</h3>
+                        <p>Experience the glamour of Dubai, from futuristic skylines to thrilling desert safaris.</p>
+                        <a href="#" class="cta-button" data-whatsapp-msg="I'm interested in the Dubai Desert & City Lights package.">Enquire Now</a>
+                    </div>
+                </div>
+
+                <div class="tour-package-card">
+                    <img src="https://plus.unsplash.com/premium_photo-1697729420937-0ecb0ddb6e85?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8c2luZ2Fwb3JlfGVufDB8fDB8fHww" alt="Gardens by the Bay, Singapore">
+                    <div class="tour-package-content">
+                        <h3>Singapore & Malaysia Duo</h3>
+                        <p>A perfect blend of modern cityscapes, theme parks, and rich cultural experiences.</p>
+                        <a href="#" class="cta-button" data-whatsapp-msg="I'm interested in the Singapore & Malaysia Duo package.">Enquire Now</a>
+                    </div>
+                </div>
+
+                <div class="tour-package-card">
+                    <img src="https://images.unsplash.com/photo-1462651567147-aa679fd1cfaf?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8c3dpdHplcmxhbmR8ZW58MHx8MHx8fDA%3D" alt="Swiss Alps">
+                    <div class="tour-package-content">
+                        <h3>Switzerland Alpine Adventure</h3>
+                        <p>Majestic mountains, picturesque lakes, and charming villages await in the Swiss Alps.</p>
+                        <a href="#" class="cta-button" data-whatsapp-msg="I'm interested in the Switzerland Alpine Adventure package.">Enquire Now</a>
+                    </div>
+                </div>
+
+                <div class="tour-package-card">
+                    <img src="https://plus.unsplash.com/premium_photo-1661878915254-f3163e91d870?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YmFsaXxlbnwwfHwwfHx8MA%3D%3D" alt="Bali Temple">
+                    <div class="tour-package-content">
+                        <h3>Bali Spiritual & Beach Retreat</h3>
+                        <p>Discover the spiritual side of Bali with serene temples and stunning volcanic landscapes, alongside beautiful beaches.</p>
+                        <a href="#" class="cta-button" data-whatsapp-msg="I'm interested in the Bali Spiritual & Beach Retreat package.">Enquire Now</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="container" id="visa-services">
+            <h2 class="section-title">Visa Services</h2>
+            <div class="visa-content">
+                <p>Navigating visa applications can be complex. TripGram simplifies the process, providing expert guidance and seamless processing for your travel permits. We handle all the paperwork, so you can focus on your trip.</p>
+                <p>We are proudly <strong>specialized in Schengen Visa</strong> applications, ensuring a smooth and hassle-free experience for your European adventures.</p>
+                <a href="#" class="cta-button" style="margin-top: 40px;" data-whatsapp-msg="I want to enquire about Visa Services.">Enquire About Visa</a>
+            </div>
+
+            <div class="visa-countries-carousel-container swiper-container visaCountrySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="visa-country-card">
+                            <span class="visa-country-flag-icon">🇪🇺</span>
+                            <span class="visa-country-tag">Schengen Visa</span>
+                            <h3 class="visa-country-name">France</h3>
+                            <a href="#" class="cta-button" data-whatsapp-msg="I'm interested in a Schengen Visa for France.">Apply Now</a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="visa-country-card">
+                            <span class="visa-country-flag-icon">🇩🇪</span>
+                            <span class="visa-country-tag">Schengen Visa</span>
+                            <h3 class="visa-country-name">Germany</h3>
+                            <a href="#" class="cta-button" data-whatsapp-msg="I'm interested in a Schengen Visa for Germany.">Apply Now</a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="visa-country-card">
+                            <span class="visa-country-flag-icon">🇮🇹</span>
+                            <span class="visa-country-tag">Schengen Visa</span>
+                            <h3 class="visa-country-name">Italy</h3>
+                            <a href="#" class="cta-button" data-whatsapp-msg="I'm interested in a Schengen Visa for Italy.">Apply Now</a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="visa-country-card">
+                            <span class="visa-country-flag-icon">🇪🇸</span>
+                            <span class="visa-country-tag">Schengen Visa</span>
+                            <h3 class="visa-country-name">Spain</h3>
+                            <a href="#" class="cta-button" data-whatsapp-msg="I'm interested in a Schengen Visa for Spain.">Apply Now</a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="visa-country-card">
+                            <span class="visa-country-flag-icon">🇳🇱</span>
+                            <span class="visa-country-tag">Schengen Visa</span>
+                            <h3 class="visa-country-name">Netherlands</h3>
+                            <a href="#" class="cta-button" data-whatsapp-msg="I'm interested in a Schengen Visa for Netherlands.">Apply Now</a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="visa-country-card">
+                            <span class="visa-country-flag-icon">🇨🇭</span>
+                            <span class="visa-country-tag">Schengen Visa</span>
+                            <h3 class="visa-country-name">Switzerland</h3>
+                            <a href="#" class="cta-button" data-whatsapp-msg="I'm interested in a Schengen Visa for Switzerland.">Apply Now</a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="visa-country-card">
+                            <span class="visa-country-flag-icon">🇧🇪</span>
+                            <span class="visa-country-tag">Schengen Visa</span>
+                            <h3 class="visa-country-name">Belgium</h3>
+                            <a href="#" class="cta-button" data-whatsapp-msg="I'm interested in a Schengen Visa for Belgium.">Apply Now</a>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="visa-country-card">
+                            <span class="visa-country-flag-icon">🇦🇪</span>
+                            <span class="visa-country-tag">Popular</span>
+                            <h3 class="visa-country-name">UAE</h3>
+                            <a href="#" class="cta-button" data-whatsapp-msg="I'm interested in a Visa for UAE.">Apply Now</a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="visa-country-card">
+                            <span class="visa-country-flag-icon">🇬🇧</span>
+                            <span class="visa-country-tag">Popular</span>
+                            <h3 class="visa-country-name">UK</h3>
+                            <a href="#" class="cta-button" data-whatsapp-msg="I'm interested in a Visa for UK.">Apply Now</a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="visa-country-card">
+                            <span class="visa-country-flag-icon">🇺🇸</span>
+                            <span class="visa-country-tag">Popular</span>
+                            <h3 class="visa-country-name">USA</h3>
+                            <a href="#" class="cta-button" data-whatsapp-msg="I'm interested in a Visa for USA.">Apply Now</a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="visa-country-card">
+                            <span class="visa-country-flag-icon">🇨🇦</span>
+                            <span class="visa-country-tag">Popular</span>
+                            <h3 class="visa-country-name">Canada</h3>
+                            <a href="#" class="cta-button" data-whatsapp-msg="I'm interested in a Visa for Canada.">Apply Now</a>
+                        </div>
+                    </div>
+                     <div class="swiper-slide">
+                        <div class="visa-country-card">
+                            <span class="visa-country-flag-icon">🇦🇺</span>
+                            <span class="visa-country-tag">Popular</span>
+                            <h3 class="visa-country-name">Australia</h3>
+                            <a href="#" class="cta-button" data-whatsapp-msg="I'm interested in a Visa for Australia.">Apply Now</a>
+                        </div>
+                    </div>
+                     <div class="swiper-slide">
+                        <div class="visa-country-card">
+                            <span class="visa-country-flag-icon">🇳🇿</span>
+                            <span class="visa-country-tag">Popular</span>
+                            <h3 class="visa-country-name">New Zealand</h3>
+                            <a href="#" class="cta-button" data-whatsapp-msg="I'm interested in a Visa for New Zealand.">Apply Now</a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="visa-country-card">
+                            <span class="visa-country-flag-icon">🇸🇬</span>
+                            <span class="visa-country-tag">Popular</span>
+                            <h3 class="visa-country-name">Singapore</h3>
+                            <a href="#" class="cta-button" data-whatsapp-msg="I'm interested in a Visa for Singapore.">Apply Now</a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="visa-country-card">
+                            <span class="visa-country-flag-icon">🇹🇭</span>
+                            <span class="visa-country-tag">Popular</span>
+                            <h3 class="visa-country-name">Thailand</h3>
+                            <a href="#" class="cta-button" data-whatsapp-msg="I'm interested in a Visa for Thailand.">Apply Now</a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="visa-country-card">
+                            <span class="visa-country-flag-icon">🇯🇵</span>
+                            <span class="visa-country-tag">Popular</span>
+                            <h3 class="visa-country-name">Japan</h3>
+                            <a href="#" class="cta-button" data-whatsapp-msg="I'm interested in a Visa for Japan.">Apply Now</a>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="visa-country-card">
+                            <span class="visa-country-flag-icon">🇰🇷</span>
+                            <span class="visa-country-tag">Popular</span>
+                            <h3 class="visa-country-name">South Korea</h3>
+                            <a href="#" class="cta-button" data-whatsapp-msg="I'm interested in a Visa for South Korea.">Apply Now</a>
+                        </div>
+                    </div>
+                     <div class="swiper-slide">
+                        <div class="visa-country-card">
+                            <span class="visa-country-flag-icon">🇨🇳</span>
+                            <span class="visa-country-tag">Popular</span>
+                            <h3 class="visa-country-name">China</h3>
+                            <a href="#" class="cta-button" data-whatsapp-msg="I'm interested in a Visa for China.">Apply Now</a>
+                        </div>
+                    </div>
+                     <div class="swiper-slide">
+                        <div class="visa-country-card">
+                            <span class="visa-country-flag-icon">🇲🇾</span>
+                            <span class="visa-country-tag">Popular</span>
+                            <h3 class="visa-country-name">Malaysia</h3>
+                            <a href="#" class="cta-button" data-whatsapp-msg="I'm interested in a Visa for Malaysia.">Apply Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </section>
+
+        <section class="container testimonials" id="testimonials">
+            <h2 class="section-title">What Our Travelers Say</h2>
+            <div class="swiper-container testimonialSwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <div class="testimonial-item">
+                            <p>"TripGram make my family trip very easy and tension-free. From start to end, they handle everything – booking hotels, arranging cabs, and all sightseeing. We don’t have to worry about anything. Even when we had a small issue with hotel check-in timing, they quickly solve it for us. We enjoy so much, all credit to TripGram. Thank you so much for making this trip memorable!"</p>
+                            <span class="author">- Priya Sharma, Hyderabad</span>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="testimonial-item">
+                            <p>"Very good arrangement by TripGram for our Switzerland trip. All places we visit, timing is perfectly managed. No delays in cab or tickets, which make us enjoy stress-free. They give us itinerary with full details, and it was easy to follow. My kids also happy with activities planned, and my wife love the beautiful hotels they booked. I recommend TripGram to everyone!"</p>
+                            <span class="author">- Rohan Gupta, Hyderabad</span>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="testimonial-item">
+                            <p>"Our honeymoon package to Thailand was a dream come true. Every detail was taken care of, from flights to amazing resort stays. Thank you, TripGram!"</p>
+                            <span class="author">- Anjali Singh, Hyderabad</span>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="testimonial-item">
+                            <p>"I've used TripGram for both domestic and international trips. Their prices are unbeatable, and the service is always top-notch."</p>
+                            <span class="author">- Vijay Kumar, Hyderabad</span>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="testimonial-item">
+                            <p>"Fantastic support for my USA visa application. They clarified all my doubts and guided me perfectly through the process."</p>
+                            <span class="author">- Neha Patel, Hyderabad</span>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="testimonial-item">
+                            <p>"Our Europe tour with TripGram was amazing! They not only planned the trip but also assisted us in getting our Schengen visa quickly. Their support team is very patient and helpful. The itinerary was well-organized, and we didn’t face any problems at all. Will surely book with TripGram again for our next trip."</p>
+                            <span class="author">- Sameer Khan, Hyderabad</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container" id="contact">
+            <h2 class="section-title">Get in Touch with TripGram</h2>
+            <div style="text-align: center; margin-bottom: 60px;">
+                <p style="font-size: 1.2em; color: #555;">Ready to plan your next adventure? Contact us today!</p>
+                <p style="font-size: 1.1em; color: #333; font-weight: 600; margin-top: 20px;">
+                    Phone: <a href="#" data-whatsapp-msg="I want to contact TripGram by phone."><b>+91 93906 89275</b></a>
+                </p>
+                <p style="font-size: 1.1em; color: #333; font-weight: 600;">
+                    Email: <a href="#" data-whatsapp-msg="I want to contact TripGram by email."><b>sales.tripgram@gmail.com</b></a>
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 TripGram - Making Memories. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#" data-whatsapp-msg="I want to know your Privacy Policy.">Privacy Policy</a> | <a href="#" data-whatsapp-msg="I want to know your Terms of Service.">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <nav class="bottom-nav">
+        <a href="#home" class="nav-item active" aria-label="Home">
+            <span class="icon"><i class="fas fa-home"></i></span>
+            <span>Home</span>
+        </a>
+        <a href="#tour-packages" class="nav-item" aria-label="Trips">
+            <span class="icon"><i class="fas fa-globe-americas"></i></span>
+            <span>Trips</span>
+        </a>
+        <a href="#visa-services" class="nav-item" aria-label="Visa Services">
+            <span class="icon"><i class="fas fa-passport"></i></span>
+            <span>Visa</span>
+        </a>
+        <a href="#testimonials" class="nav-item" aria-label="Testimonials">
+            <span class="icon"><i class="fas fa-comments"></i></span>
+            <span>Reviews</span>
+        </a>
+        <a href="#contact" class="nav-item" aria-label="Contact Account">
+            <span class="icon"><i class="fas fa-user-circle"></i></span>
+            <span>Contact</span>
+        </a>
+    </nav>
+
+    <a href="#" class="whatsapp-button" aria-label="Chat with us on WhatsApp" data-whatsapp-msg="Hello TripGram, I have a general inquiry.">
+        <span class="emoji-icon">💬</span>
+    </a>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
     <script>
-        const countdown = () => {
-            // Set your launch date here! (One month from May 25, 2025 is June 25, 2025)
-            const launchDate = new Date("June 25, 2025 00:00:00").getTime(); 
+        const whatsappNumber = '919390689275'; // Your WhatsApp number
 
-            const x = setInterval(() => {
-                const now = new Date().getTime();
-                const distance = launchDate - now;
+        // Function to update all WhatsApp links with dynamic text
+        function setWhatsAppLinks() {
+            document.querySelectorAll('a[data-whatsapp-msg]').forEach(anchor => {
+                const message = encodeURIComponent(anchor.getAttribute('data-whatsapp-msg'));
+                anchor.href = `https://wa.me/${whatsappNumber}?text=${message}`;
+                anchor.target = '_blank';
+                anchor.rel = 'noopener noreferrer';
+            });
+        }
 
-                if (distance < 0) {
-                    clearInterval(x);
-                    document.getElementById("countdown").innerHTML = "<h2>We are Live!</h2>";
-                    return; // Stop the function if the countdown is over
+        // Initialize Google Translate Widget
+        // This function is globally exposed by Google's script (`element.js`)
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en', // Default language of your page
+                includedLanguages: 'en,hi,fr,ar,ml', // Languages you want to offer
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false // Important: We don't want the default widget to show
+            }, 'google_translate_element'); // ID of the hidden div where the widget will be rendered
+
+            // After the widget is loaded, if there's a saved language, apply it
+            // We need to wait a moment for the widget to fully render its internal elements
+            setTimeout(() => {
+                const savedLanguage = localStorage.getItem('websiteLanguage');
+                if (savedLanguage && savedLanguage !== 'en') {
+                    // Find Google Translate's hidden select element and set its value
+                    const translateCombo = document.querySelector('.goog-te-combo');
+                    if (translateCombo) {
+                        translateCombo.value = savedLanguage;
+                        // Trigger the change event programmatically to activate translation
+                        translateCombo.dispatchEvent(new Event('change'));
+                    }
+                }
+            }, 500); // Small delay to ensure Google's elements are ready
+        }
+
+
+        // Call the function initially to set up WhatsApp links
+        setWhatsAppLinks();
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+
+                if (!targetElement) return;
+
+                // Adjust for the new top utility bar and existing top bar
+                const topUtilityBar = document.querySelector('.top-utility-bar');
+                const topBar = document.querySelector('.top-bar');
+                const bottomNav = document.querySelector('.bottom-nav');
+
+                const topUtilityBarHeight = topUtilityBar ? topUtilityBar.offsetHeight : 0;
+                const topBarHeight = topBar ? topBar.offsetHeight : 0;
+                const bottomNavHeight = bottomNav ? bottomNav.offsetHeight : 0;
+
+                let offset = topUtilityBarHeight + topBarHeight;
+                // For sections near the bottom, account for bottom nav presence
+                if (targetId === 'contact' || targetId === 'testimonials' || targetId === 'tour-packages' || targetId === 'visa-services') {
+                    offset += bottomNavHeight + 10; // Add bottom nav height + a little buffer
+                } else if (targetId === 'home' || targetId === 'services') {
+                    offset = topUtilityBarHeight + topBarHeight + 5; // A small buffer for top sections
                 }
 
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-                document.getElementById("days").innerHTML = String(days).padStart(2, '0');
-                document.getElementById("hours").innerHTML = String(hours).padStart(2, '0');
-                document.getElementById("minutes").innerHTML = String(minutes).padStart(2, '0');
-                document.getElementById("seconds").innerHTML = String(seconds).padStart(2, '0');
+                const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                const offsetPosition = elementPosition - offset;
 
-            }, 1000);
-        };
+                window.scrollTo({
+                     top: offsetPosition,
+                     behavior: "smooth"
+                });
 
-        countdown();
+                document.querySelectorAll('.nav-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                const clickedNavItem = this.closest('.nav-item');
+                if (clickedNavItem) {
+                    clickedNavItem.classList.add('active');
+                }
+            });
+        });
+
+        // Observe sections to update active nav item on scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navItems = document.querySelectorAll('.bottom-nav .nav-item');
+
+        const observer = new IntersectionObserver(entries => {
+            let activeFoundByObserver = false;
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Calculate center of section relative to viewport
+                    const rect = entry.target.getBoundingClientRect();
+                    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+                    const centerOfSection = rect.top + rect.height / 2;
+                    const centerOfViewport = viewportHeight / 2;
+
+                    // Only activate if the section is roughly centered or prominently visible
+                    if (Math.abs(centerOfSection - centerOfViewport) < viewportHeight * 0.35) { // Within 35% of center
+                        const id = entry.target.id;
+                        navItems.forEach(item => {
+                            item.classList.remove('active');
+                            if (item.getAttribute('href') && item.getAttribute('href').substring(1) === id) {
+                                item.classList.add('active');
+                                activeFoundByObserver = true;
+                            }
+                        });
+                    }
+                }
+            });
+
+            // Fallback: If no section is prominently visible (e.g., between sections), keep current or default to home
+            // This part might need further refinement based on specific layout and desired behavior
+            if (!activeFoundByObserver && window.scrollY < sections[0].offsetTop / 2) { // If near the very top of the page
+                 navItems.forEach(item => item.classList.remove('active'));
+                 const homeNavItem = document.querySelector('.bottom-nav a[href="#home"]');
+                 if (homeNavItem) homeNavItem.classList.add('active');
+            }
+
+        }, { threshold: [0, 0.25, 0.5, 0.75, 1], rootMargin: '-10% 0% -10% 0%' }); // Aggressive rootMargin to detect quicker
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // Initial active state for the Home button when page loads
+        window.addEventListener('load', () => {
+            const homeNavItem = document.querySelector('.bottom-nav a[href="#home"]');
+            if (homeNavItem) {
+                homeNavItem.classList.add('active');
+            }
+        });
+
+        // Initialize Swiper for Exclusive Deals & Offers
+        const mySwiper = new Swiper('.mySwiper', {
+            loop: true,
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            },
+            effect: 'slide',
+            grabCursor: true,
+            spaceBetween: 30, // Default space, overridden by breakpoints
+
+            // Removed pagination and navigation
+            breakpoints: {
+                // Very small mobile (e.g., iPhone 5/SE, older Androids)
+                320: {
+                    slidesPerView: 1, // Show only one slide at a time
+                    spaceBetween: 15, /* ADJUSTED: Slightly reduced space for very small screens */
+                    centeredSlides: true, /* KEPT: Centered for single slide view */
+                },
+                // Small mobile (e.g., most modern smartphones in portrait)
+                480: {
+                    slidesPerView: 1.1, // Show one full slide and a hint of the next
+                    spaceBetween: 20,
+                    centeredSlides: true, /* KEPT: Centered for partial slide view */
+                },
+                // Medium screens (e.g., larger phones, small tablets)
+                768: {
+                    slidesPerView: 2, // Show two full slides
+                    spaceBetween: 30,
+                    centeredSlides: false, // No need to center if showing multiple full slides
+                },
+                // Larger tablets and desktops
+                1024: {
+                    slidesPerView: 2.8,
+                    spaceBetween: 40,
+                    centeredSlides: false,
+                },
+                // Large desktops
+                1200: {
+                    slidesPerView: 3.2,
+                    spaceBetween: 40,
+                    centeredSlides: false,
+                }
+            }
+        });
+
+        // Initialize Swiper for Testimonials
+        const testimonialSwiper = new Swiper('.testimonialSwiper', {
+            loop: true,
+            autoplay: {
+                delay: 5000, // Slightly longer delay for testimonials
+                disableOnInteraction: false,
+            },
+            effect: 'slide',
+            grabCursor: true,
+            spaceBetween: 30, // Default space
+
+            // Removed pagination and navigation
+            breakpoints: {
+                320: {
+                    slidesPerView: 1, // One testimonial at a time
+                    spaceBetween: 20,
+                    centeredSlides: true,
+                },
+                768: {
+                    slidesPerView: 2, // Two testimonials on larger mobiles/tablets
+                    spaceBetween: 30,
+                    centeredSlides: false,
+                },
+                1024: {
+                    slidesPerView: 3, // Three on desktops
+                    spaceBetween: 40,
+                    centeredSlides: false,
+                }
+            }
+        });
+
+        // NEW: Initialize Swiper for Visa Countries
+        const visaCountrySwiper = new Swiper('.visaCountrySwiper', {
+            loop: true,
+            autoplay: {
+                delay: 3500, // Slightly faster rotation for countries
+                disableOnInteraction: false,
+            },
+            effect: 'slide',
+            grabCursor: true,
+            spaceBetween: 20, // Space between visa country cards
+
+            // Removed pagination and navigation
+            breakpoints: {
+                320: {
+                    slidesPerView: 1,
+                    spaceBetween: 15,
+                    centeredSlides: true,
+                },
+                480: {
+                    slidesPerView: 1.2, // Show one and a bit for small phones
+                    spaceBetween: 20,
+                    centeredSlides: true,
+                },
+                768: {
+                    slidesPerView: 2, // Show two on tablets
+                    spaceBetween: 25,
+                    centeredSlides: false,
+                },
+                1024: {
+                    slidesPerView: 3, // Show three on desktops
+                    spaceBetween: 30,
+                    centeredSlides: false,
+                },
+                1200: {
+                    slidesPerView: 4, // Show four on larger desktops
+                    spaceBetween: 30,
+                    centeredSlides: false,
+                }
+            }
+        });
+
+        // Theme Toggle Functionality for the new button
+        const newThemeToggleBtn = document.querySelector('.top-utility-bar .theme-toggle-button');
+        const body = document.body;
+
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            body.classList.add('dark-theme');
+            newThemeToggleBtn.innerHTML = '<i class="fas fa-sun"></i> Day';
+        } else {
+            newThemeToggleBtn.innerHTML = '<i class="fas fa-moon"></i> Night';
+        }
+
+        newThemeToggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-theme');
+            if (body.classList.contains('dark-theme')) {
+                localStorage.setItem('theme', 'dark');
+                newThemeToggleBtn.innerHTML = '<i class="fas fa-sun"></i> Day';
+            } else {
+                localStorage.setItem('theme', 'light');
+                newThemeToggleBtn.innerHTML = '<i class="fas fa-moon"></i> Night';
+            }
+        });
+
+        // Language Selection Functionality
+        const languageSelect = document.getElementById('website-language-select');
+
+        languageSelect.addEventListener('change', (event) => {
+            const selectedLanguage = event.target.value;
+            localStorage.setItem('websiteLanguage', selectedLanguage);
+
+            // Find the Google Translate dropdown and trigger its change event
+            // Google's widget creates a select with class 'goog-te-combo'
+            const translateCombo = document.querySelector('.goog-te-combo');
+            if (translateCombo) {
+                translateCombo.value = selectedLanguage;
+                // Important: Dispatch a 'change' event to make Google Translate react
+                translateCombo.dispatchEvent(new Event('change'));
+            } else {
+                console.warn("Google Translate widget's combo box not found. Translation might not work immediately.");
+                // In some rare cases, if the script isn't fully loaded,
+                // you might need to re-initialize or prompt the user.
+                // For simplicity here, we just log a warning.
+            }
+        });
+
+        // Set initial language from localStorage or default to English
+        // This runs after Google Translate's init function is called by the script,
+        // ensuring it picks up the saved preference.
+        window.addEventListener('load', () => {
+            const savedLanguage = localStorage.getItem('websiteLanguage');
+            if (savedLanguage) {
+                languageSelect.value = savedLanguage;
+                // No need to dispatch change here on load, as googleTranslateElementInit handles initial setting.
+            } else {
+                languageSelect.value = 'en'; // Default to English if no preference
+            }
+        });
+
     </script>
+
 </body>
 </html>
